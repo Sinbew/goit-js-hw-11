@@ -42,6 +42,8 @@ function onSubmit(event) {
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
+    } else if (response.data.hits.lengts <= 40) {
+      observer.unobserve(target);
     } else {
       createMarkup(response.data.hits);
       observer.observe(target);
@@ -98,6 +100,7 @@ function generateImages(entries) {
           Notiflix.Notify.failure(
             `We're sorry, but you've reached the end of search results.`
           );
+          observer.unobserve(target);
           return;
         }
         createMarkup(response.data.hits);
